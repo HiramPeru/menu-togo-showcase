@@ -1,0 +1,18 @@
+# OS files
+.DS_Store
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Local workspace
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
