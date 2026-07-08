@@ -1,0 +1,56 @@
+flowchart LR
+    subgraph Personas
+        Admin["Admin"]
+        Ops["Operator"]
+        Kitchen["Kitchen / Dispatch"]
+        Finance["Finance / Admin"]
+    end
+
+    App["React / Vite Web App"]
+    Auth["Auth + Access Layer"]
+    RLS["RLS / Role-Based Security"]
+    DB["Supabase / PostgreSQL"]
+
+    subgraph Modules["Operational Modules"]
+        Menu["Menu Management"]
+        Orders["Daily Ordering"]
+        Dispatch["Kitchen / Dispatch View"]
+        Balance["Customer Balance"]
+        Ledger["Finance Ledger"]
+        Reporting["Admin Reporting"]
+    end
+
+    subgraph Automation["Reporting and Automation Layer"]
+        Summaries["AI-Assisted Summaries"]
+        Alerts["Anomaly Detection / Alerts"]
+        Tickets["Incident / Ticket Workflow"]
+        Ingestion["Messaging Intake (Future)"]
+    end
+
+    Admin --> App
+    Ops --> App
+    Kitchen --> App
+    Finance --> App
+
+    App --> Auth
+    Auth --> RLS
+    RLS --> DB
+
+    App --> Menu
+    App --> Orders
+    App --> Dispatch
+    App --> Balance
+    App --> Ledger
+    App --> Reporting
+
+    Menu --> DB
+    Orders --> DB
+    Dispatch --> DB
+    Balance --> DB
+    Ledger --> DB
+    Reporting --> DB
+
+    DB --> Summaries
+    DB --> Alerts
+    DB --> Tickets
+    DB --> Ingestion

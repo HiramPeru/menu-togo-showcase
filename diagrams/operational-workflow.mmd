@@ -1,0 +1,13 @@
+flowchart LR
+    MenuSetup["1. Configure Daily Menu"] --> OrderEntry["2. Register Customer Order"]
+    OrderEntry --> Validation["Validate Service-Day Context"]
+    Validation --> KitchenView["3. Build Kitchen / Dispatch View"]
+    KitchenView --> Fulfillment["Prepare / Pack / Dispatch"]
+    Fulfillment --> AdminReview["4. Admin Review and Reporting"]
+    AdminReview --> Automation["5. Identify Automation Opportunities"]
+
+    Customer["Customer Request"] --> OrderEntry
+    Operator["Operator"] --> MenuSetup
+    Operator --> OrderEntry
+    Kitchen["Kitchen / Dispatch Team"] --> KitchenView
+    Admin["Admin"] --> AdminReview

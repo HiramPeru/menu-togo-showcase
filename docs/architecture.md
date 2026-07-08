@@ -1,62 +1,115 @@
-# Architecture Overview
+# Architecture
 
-## 1. Architecture Type
+## Purpose
 
-The private application follows a single-page application architecture.
+This document describes the public, conceptual architecture of Menu To Go. It is intentionally abstracted to explain the technical shape of the system without disclosing private code, exact infrastructure identifiers, or internal implementation details.
+
+## High-Level Architecture
+
+Menu To Go is best understood as an operations platform with a web application layer, a secured data platform, and a reporting/automation extension layer.
 
 ```text
-Browser Client
-     ↓
-React + TypeScript Frontend
-     ↓
-Supabase Client
-     ↓
-Supabase Auth + PostgreSQL + RLS
+Personas
+  -> React/Vite application
+  -> Auth, data access, and service workflows
+  -> PostgreSQL-backed operational records
+  -> Reporting and automation extensions
 ```
 
-## 2. Frontend Responsibilities
+The system supports multiple operational perspectives rather than a single generic user journey. Admin, operations, kitchen/dispatch, and finance users all interact with different views over the same service workflow.
 
-The frontend handles:
+## Frontend Layer
 
-- Authentication screens.
-- Role-aware navigation.
-- CRM operations.
-- Daily menu setup.
-- Daily order registration.
-- Print / dispatch views.
-- Historical reporting views.
+The frontend is a React/Vite application oriented around fast operational execution.
 
-## 3. Backend Responsibilities
+Primary concerns include:
 
-The backend layer, implemented with Supabase, handles:
+- Daily menu configuration
+- Order registration and validation
+- Kitchen and dispatch visibility
+- Customer account and balance review
+- Finance and admin workflows
+- Role-aware navigation and screen access
 
-- Authentication.
-- User profile mapping.
-- Role-based access.
-- Relational data storage.
-- Row Level Security.
-- Operational queries.
+The frontend is expected to prioritize:
 
-## 4. Security Design Principles
+- Fast data entry for repetitive daily work
+- Clear service-day context
+- Low-friction review of status changes
+- Views that can support printing or dispatch-oriented use cases
 
-The private system is designed around the following principles:
+## Backend and Data Layer
 
-- No credentials hardcoded in source code.
-- Environment-based configuration.
-- Role-based access.
-- Restricted access to administrative functions.
-- Database-level Row Level Security.
-- Manual activation of new users.
-- Separation between public showcase and private production code.
+The conceptual backend uses Supabase and PostgreSQL as the application data platform.
 
-## 5. Data Privacy Boundary
+Responsibilities include:
 
-The public showcase does not expose:
+- Authentication and user identity
+- Access control and role-aware authorization
+- Storage of operational entities such as orders, menus, customer records, and ledger events
+- Query support for dashboards and reporting
+- Secure data access patterns using Row Level Security and scoped permissions
 
-- Live endpoints.
-- Real user records.
-- Student information.
-- Customer phone numbers.
-- Production credentials.
-- Internal local paths.
-- Operational exports.
+The data layer should be treated as both the transaction system for operations and the source of truth for reporting inputs.
+
+## Operational Modules
+
+The architecture aligns around a set of business modules rather than around purely technical domains.
+
+| Module | Architectural role |
+|---|---|
+| CRM / Customer Records | Maintains customer and account context used across operations |
+| Menu Management | Defines service-day offerings and orderable options |
+| Order Operations | Captures daily requests and tracks fulfillment state |
+| Kitchen / Dispatch | Presents consolidated preparation and handoff views |
+| Customer Balance | Connects order activity, payments, and account state |
+| Finance Ledger | Records payments, charges, expenses, and reporting events |
+| Admin and Reporting | Supports review, oversight, and role-aware operational control |
+
+## Integration Points
+
+The public repository does not include live integrations, but the conceptual design suggests several extension points:
+
+- Payment capture or reconciliation workflows
+- Messaging intake for structured order registration
+- Admin dashboard reporting
+- Automation or ticketing systems for follow-up actions
+- Export or reporting surfaces for finance and service operations
+
+These integrations should be designed around strong access boundaries and event traceability rather than direct, uncontrolled data movement.
+
+## Deployment Considerations
+
+For a private production implementation, deployment concerns would typically include:
+
+- Environment-based configuration
+- Separation of public frontend configuration from privileged backend secrets
+- Controlled database access
+- RLS policy validation
+- Backup and recovery readiness
+- Monitoring for operational errors, data drift, and access issues
+
+The public portfolio repository deliberately omits deployment endpoints, project identifiers, and environment configuration values.
+
+## Suggested Future Architecture
+
+A future-state evolution could add clearer separation between transaction workflows and asynchronous operational intelligence.
+
+Potential directions:
+
+- Event-oriented ledger and reporting pipelines
+- Scheduled jobs for daily summaries and anomaly checks
+- Ticketing flows for operational exceptions
+- Messaging ingestion services for structured order capture
+- AI-assisted narrative summaries for operations and finance review
+- Dedicated service boundaries for reporting and automation workloads
+
+This future architecture can remain compatible with a React frontend and a Supabase/PostgreSQL core, while introducing a more explicit orchestration layer for background work.
+
+## Mermaid Diagram Reference
+
+The architecture diagram for this document is available here:
+
+- [System Architecture Diagram](../diagrams/system-architecture.mmd)
+
+Use the diagram together with this document to explain the relationship between user roles, application workflows, security controls, and automation opportunities.

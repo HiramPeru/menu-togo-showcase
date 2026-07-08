@@ -1,0 +1,13 @@
+flowchart LR
+    Order["Order"] --> Charge["Order Charge Event"]
+    Payment["Payment"] --> Settlement["Payment Ledger Event"]
+    Expense["Purchase / Expense"] --> ExpenseEvent["Expense Ledger Event"]
+
+    Charge --> Ledger["Ledger Transactions"]
+    Settlement --> Ledger
+    ExpenseEvent --> Ledger
+
+    Ledger --> Balance["Customer Balance / Account State"]
+    Ledger --> Reporting["Admin Finance Reporting"]
+    Balance --> Review["Finance / Admin Review"]
+    Reporting --> Review

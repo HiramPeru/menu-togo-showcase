@@ -1,209 +1,126 @@
-# Almuerzo To Go — Menu & Order Operations Showcase
+# Menu To Go
 
-A private operational web application designed to manage daily lunch menus, customers, orders, payment status, and dispatch reporting for school and office meal delivery operations.
+Public technical portfolio repository for a meal-ordering and operations platform focused on daily menu management, customer orders, kitchen dispatch, balance tracking, finance workflows, and administrative control.
 
-> This repository is a public showcase. It does not contain production source code, credentials, customer records, student data, phone numbers, private deployment URLs, or operational databases.
+> This is a sanitized public showcase repository. It does not include production source code, credentials, private deployment details, customer data, personal data, database exports, or internal-only assets.
 
-## 1. Product Overview
+## Executive Summary
 
-**Almuerzo To Go** centralizes the daily workflow of a lunch delivery operation that would otherwise depend on WhatsApp messages, spreadsheets, manual consolidation, and fragmented records.
+Menu To Go represents the architecture and operating model of a service platform used to coordinate recurring meal operations. The product consolidates daily menu setup, order registration, kitchen-facing preparation flows, customer balance visibility, finance controls, and administrative reporting into a single operational system.
 
-The system helps operators manage:
+This repository is designed to communicate technical judgment, product structure, delivery maturity, and future automation potential without publishing the private production implementation.
 
-- Institutions or companies.
-- Locations or branches.
-- Diners / customers.
-- Daily menus.
-- Food components.
-- Daily orders.
-- Payment status.
-- Operational status.
-- Historical order review.
-- Print-ready kitchen and dispatch views.
+## Business Problem
 
-## 2. Business Problem
+Meal operations for schools, offices, and similar recurring service environments often rely on a patchwork of messages, spreadsheets, ad hoc validations, and manual reconciliation. That operating model creates predictable friction:
 
-Food delivery operations for schools and offices usually face recurring issues:
-
-| Problem | Operational Impact |
+| Operational challenge | Typical consequence |
 |---|---|
-| Orders arrive through multiple WhatsApp conversations | High risk of omissions and duplicate records |
-| Customer information lives in spreadsheets | Manual updates, low traceability, weak reporting |
-| Menus change daily | Operators must constantly validate available options |
-| Payment tracking is separated from order tracking | Increased reconciliation effort |
-| Kitchen and dispatch teams need consolidated views | Manual copy/paste and printing errors |
-| Historical records are difficult to audit | Poor visibility into demand, volume, and recurring customers |
+| Orders arrive through multiple channels | Missed requests, duplication, and slower consolidation |
+| Daily menu options change frequently | Manual validation and avoidable data-entry mistakes |
+| Kitchen and dispatch teams need a single source of truth | Rework in preparation, packing, and handoff |
+| Customer balances and payments are tracked separately | Weak reconciliation and reduced financial visibility |
+| Admin reporting is assembled manually | Low auditability and delayed decision-making |
 
-## 3. Solution Summary
+## Solution Overview
 
-The application provides a structured operating panel for the full daily meal order cycle:
+The platform is organized around a practical operational loop:
 
-```text
-Customer Master Data
-        ↓
-Daily Menu Configuration
-        ↓
-Daily Order Registration
-        ↓
-Payment / Order Status Tracking
-        ↓
-Kitchen & Dispatch View
-        ↓
-Historical Review
-```
+1. Configure the menu and service-day context.
+2. Register and validate customer orders.
+3. Prepare kitchen and dispatch-ready operational views.
+4. Reflect charges, payments, and expenses in a finance ledger model.
+5. Review dashboards, account state, and operational reporting.
+6. Surface automation opportunities for follow-up, anomaly detection, and summaries.
 
-## 4. Core Modules
+## Functional Modules
 
-### 4.1 CRM
-
-Manages the master records used by the operation:
-
-- Institutions / companies.
-- Locations / branches.
-- Diners / customers.
-- Subscription status.
-- Classroom, department, or group references when applicable.
-
-### 4.2 Food Components
-
-Maintains a reusable catalog of meal components:
-
-- Main protein.
-- Side dish.
-- Base.
-- Starter.
-- Dessert.
-- Beverage.
-
-This avoids typing the same dishes repeatedly and reduces naming inconsistencies.
-
-### 4.3 Daily Menu
-
-Defines which components are available for a specific service date.
-
-Operators can configure the menu before receiving or registering orders.
-
-### 4.4 Daily Orders
-
-Registers each order linked to:
-
-- Service date.
-- Diner / customer.
-- Selected menu components.
-- Payment status.
-- Operational order status.
-
-### 4.5 Print / Dispatch View
-
-Provides a consolidated view for kitchen preparation, packing, and delivery review.
-
-### 4.6 History
-
-Allows review of past orders and supports operational auditing.
-
-### 4.7 Admin
-
-Handles user activation and access roles.
-
-## 5. Access Model
-
-The private application uses authenticated access and role-based permissions.
-
-| Role | Scope |
+| Module | Purpose |
 |---|---|
-| Admin | Full access, user activation, structural management |
-| Operator | Daily operation, order registration, menu handling, CRM usage |
+| Daily Ordering | Supports service-day setup, order intake, and operational validation |
+| Menu Management | Defines the menu context and available options for each service date |
+| Kitchen and Dispatch | Produces consolidated preparation and delivery-oriented views |
+| Customer Accounts | Tracks customer balance state and account history conceptually |
+| Finance Ledger | Captures payments, charges, expenses, and reporting inputs |
+| CRM and Admin Control | Manages customer records, operator workflows, and administrative visibility |
+| Reporting and Oversight | Summarizes order activity, finance status, and operational exceptions |
 
-New accounts require administrative activation before accessing the system.
+## Technical Architecture Summary
 
-## 6. Technology Stack
+The private system context behind this showcase uses a React/Vite frontend and a Supabase/PostgreSQL backend with role-aware access, database-side controls, and operational workflows across orders, customer balances, finance records, and reporting.
 
-| Layer | Technology |
+At a conceptual level:
+
+- The frontend provides operator-facing workflows for daily execution.
+- Supabase services support authentication, application data, and secured queries.
+- PostgreSQL stores operational and finance entities.
+- Row Level Security and role-aware access policies help constrain visibility.
+- Reporting and automation layers can extend the system without exposing core transactional data publicly.
+
+See [Architecture](./docs/architecture.md) and [System Diagram](./diagrams/system-architecture.mmd).
+
+## Repository Scope and Sanitization Notice
+
+This repository intentionally excludes:
+
+- Production application source code
+- Secrets, tokens, API keys, or credentials
+- Private environment values or deployment endpoints
+- Customer records, phone numbers, addresses, or personal data
+- Database dumps, exact production schema, or internal migrations
+- Internal-only assets, client-specific files, or confidential reports
+
+The goal is to present system thinking and delivery quality, not to mirror the private implementation.
+
+## Selected Workflows
+
+The showcase centers on the workflows that matter most in daily operations:
+
+- Menu configuration for a service day
+- Order registration and validation
+- Kitchen preparation and dispatch coordination
+- Customer balance updates through ledger-aware events
+- Admin review of activity, exceptions, and reporting
+- Identification of automation opportunities for summaries, alerts, and intake support
+
+## Technology Stack
+
+| Layer | Technology / Direction |
 |---|---|
 | Frontend | React, TypeScript, Vite |
-| UI | Custom CSS |
-| Backend / Database | Supabase PostgreSQL |
-| Authentication | Supabase Auth |
-| Authorization | Role-based access and Row Level Security |
-| Deployment | Private cloud deployment |
+| Data platform | Supabase, PostgreSQL |
+| Auth and access | Supabase Auth, role-aware access, Row Level Security |
+| Operations model | Order management, dispatch views, customer account tracking, finance ledger |
+| Reporting direction | Admin dashboards, operational summaries, exception review |
+| Automation direction | AI-assisted reporting, anomaly detection, messaging intake, agentic workflows |
 
-## 7. Security & Privacy Position
+## Operational Value
 
-This showcase intentionally excludes:
+This portfolio project demonstrates how a service operation can move from fragmented coordination to a more controlled system of record. The value is primarily operational:
 
-- Production source code.
-- Environment files.
-- API keys.
-- Supabase project URLs.
-- Supabase anonymous or service-role keys.
-- Private deployment URLs.
-- Customer names.
-- Student names.
-- Phone numbers.
-- Institution-specific operational datasets.
-- Local development paths.
-- Internal workspace paths.
-- Screenshots containing real operational data.
+- Better traceability from order intake to dispatch
+- Cleaner visibility into account state and finance events
+- Reduced dependence on manual reconciliation
+- Stronger separation between operator workflows and administrative controls
+- A foundation for future automation and service operations tooling
 
-## 8. Data Model — Conceptual View
+## Documentation Index
 
-```text
-Institution
-    └── Location
-            └── Diner / Customer
-                    └── Daily Order
-                            ├── Menu Date
-                            ├── Selected Components
-                            ├── Payment Status
-                            └── Operational Status
-```
+### Core Docs
 
-## 9. Operational Status Examples
+- [Architecture](./docs/architecture.md)
+- [Conceptual Data Model](./docs/data-model.md)
+- [Security Notes](./docs/security-notes.md)
+- [Delivery Scope](./docs/delivery-scope.md)
+- [Demo Flow](./docs/demo-flow.md)
+- [Automation Roadmap](./docs/automation-roadmap.md)
 
-### Payment Status
+### Diagrams
 
-- Pending
-- Paid
-- Exempted
-- Cancelled
+- [System Architecture Mermaid Source](./diagrams/system-architecture.mmd)
+- [Operational Workflow Mermaid Source](./diagrams/operational-workflow.mmd)
+- [Finance Ledger Flow Mermaid Source](./diagrams/finance-ledger-flow.mmd)
 
-### Order Status
+## Public Portfolio Positioning
 
-- Registered
-- Prepared
-- Delivered
-- Cancelled
-
-## 10. Product Roadmap
-
-Planned improvements include:
-
-- Daily dashboard with order volume and payment status.
-- Excel / PDF export.
-- WhatsApp-assisted order intake.
-- Costing and margin module.
-- Demand forecasting by weekday and institution type.
-- Automated payment reminders.
-- Role-specific dashboards.
-- Kitchen production summaries.
-- Mobile-first operator experience.
-- Audit trail for sensitive changes.
-
-## 11. Portfolio Relevance
-
-This project demonstrates applied experience in:
-
-- Business process digitization.
-- Small-business operations automation.
-- CRM-style data modeling.
-- Food service workflow design.
-- Role-based access design.
-- React / TypeScript frontend architecture.
-- Supabase-backed application development.
-- Operational UX for non-technical users.
-- AI-assisted software iteration and refactoring.
-
-## 12. Repository Scope
-
-This repository is only a public-facing portfolio showcase.  
-The production codebase remains private.
+This repository is intended for technical portfolio review, architecture discussion, delivery scoping, and product/operations walkthroughs. It is not a public release of the private production application.
