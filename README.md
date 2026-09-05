@@ -94,15 +94,27 @@ The showcase centers on the workflows that matter most in daily operations:
 | Reporting direction | Admin dashboards, operational summaries, exception review |
 | Automation direction | AI-assisted reporting, anomaly detection, messaging intake, agentic workflows |
 
-## Operational Value
+## Intended Operational Value
 
-This portfolio project demonstrates how a service operation can move from fragmented coordination to a more controlled system of record. The value is primarily operational:
+The architecture targets the following operational benefits. These are design goals, not measured outcomes established by this public repository:
 
 - Better traceability from order intake to dispatch
 - Cleaner visibility into account state and finance events
 - Reduced dependence on manual reconciliation
 - Stronger separation between operator workflows and administrative controls
 - A foundation for future automation and service operations tooling
+
+## My Role / Contribution
+
+I maintain the public architecture and operational workflow narrative for this project: meal-ordering scope, ledger-aware finance flows, access boundaries, and a sanitized automation roadmap. The public [delivery scope](docs/delivery-scope.md) and [architecture](docs/architecture.md) are the reviewable contribution here; this repository does not establish authorship of every part of the private implementation.
+
+## Evidence / Outcomes
+
+- [Operational workflow](diagrams/operational-workflow.mmd) makes the order-to-dispatch sequence reviewable.
+- [Conceptual data model](docs/data-model.md) and [finance ledger flow](diagrams/finance-ledger-flow.mmd) explain the account and finance model.
+- [Security notes](docs/security-notes.md) document access and public-data boundaries.
+
+These are qualitative documentation artifacts, not measured adoption, efficiency gains, or independently verified production results. Automation remains a [roadmap](docs/automation-roadmap.md).
 
 ## Documentation Index
 
