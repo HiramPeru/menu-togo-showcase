@@ -1,5 +1,7 @@
 # Menu To Go
 
+**Project Status:** Sanitized architecture and operational workflow showcase (documentation and Mermaid diagrams only; non-executable specification).
+
 Public technical portfolio repository for a meal-ordering and operations platform focused on daily menu management, customer orders, kitchen dispatch, balance tracking, finance workflows, and administrative control.
 
 > This is a sanitized public showcase repository. It does not include production source code, credentials, private deployment details, customer data, personal data, database exports, or internal-only assets.
@@ -115,6 +117,18 @@ I maintain the public architecture and operational workflow narrative for this p
 - [Security notes](docs/security-notes.md) document access and public-data boundaries.
 
 These are qualitative documentation artifacts, not measured adoption, efficiency gains, or independently verified production results. Automation remains a [roadmap](docs/automation-roadmap.md).
+
+## Key Technical Decisions
+
+- **Ledger-backed customer balances:** Modeling charges, payments, and adjustments as structured finance-ledger events ([diagrams/finance-ledger-flow.mmd](diagrams/finance-ledger-flow.mmd)) prevents silent balance drift compared to overwriting a single mutable balance field.
+- **Role-scoped operational views:** Separating daily menu intake and kitchen/dispatch execution views from administrative finance reporting reduces operator error while preserving Supabase/PostgreSQL access boundaries.
+- **Sanitized architectural boundary:** Publishing the conceptual data model ([docs/data-model.md](docs/data-model.md)) and workflow diagrams makes the solution architecture reviewable without exposing private production code or customer records.
+
+## Limitations
+
+- **Documentation-only showcase (non-executable):** This repository contains architecture notes and Mermaid diagrams only. No application source code, build scripts, or reproduction commands apply.
+- **No measured production telemetry:** Operational benefits described in this repository are architectural design targets, not audited financial or throughput metrics.
+- **Automation is roadmap scope:** AI-assisted intake, anomaly detection, and summary workflows ([docs/automation-roadmap.md](docs/automation-roadmap.md)) are documented as future design directions.
 
 ## Documentation Index
 
